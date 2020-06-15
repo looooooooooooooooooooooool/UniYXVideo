@@ -1,0 +1,3 @@
+rootProject.name='FvvYXVideoDemo'
+include ':app'
+include ':FvvYXVideoSDK' 

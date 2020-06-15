@@ -1,0 +1,3 @@
+rootProject.name='UniPluginYXVideo'
+include ':app'
+include ':yxvideo'

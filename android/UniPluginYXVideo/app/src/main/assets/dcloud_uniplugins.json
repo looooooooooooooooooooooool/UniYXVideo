@@ -1,0 +1,13 @@
+{
+  "nativePlugins": [
+    {
+      "plugins": [
+        {
+          "type": "component",
+          "name": "Fvv-UniYXVideo",
+          "class": "uni.fvv.yxvideo.UniYXVideoComponent"
+        }
+      ]
+    }
+  ]
+}

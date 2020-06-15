@@ -1,0 +1,20 @@
+{
+    "name": "UniYXVideo",
+    "id": "Fvv-UniYXVideo",
+    "version": "1.0.0",
+    "description": "安卓网易云信拍照录像推流",
+    "_dp_type":"nativeplugin",
+    "_dp_nativeplugin":{
+        "android": {
+            "plugins": [
+                {
+                    "type": "component",
+                    "name": "Fvv-UniYXVideo",
+                    "class": "uni.fvv.yxvideo.UniYXVideoComponent"
+                }
+            ],
+			"integrateType": "aar",
+            "minSdkVersion": "17"
+        }
+    }
+}
