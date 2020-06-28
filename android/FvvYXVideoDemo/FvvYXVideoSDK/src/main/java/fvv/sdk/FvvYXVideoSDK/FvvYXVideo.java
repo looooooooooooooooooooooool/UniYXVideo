@@ -185,6 +185,24 @@ public class FvvYXVideo {
         }
     }
 
+    //自定义打开预览
+    public void startPreviewEx(int width,int height ,int fps, int bitrate){
+        boolean frontCamera = mPublishParam.frontCamera; // 是否前置摄像头
+        boolean useFilter = mPublishParam.useFilter; //是否使用滤镜
+
+        lsMediaCapture.VideoPara para = new lsMediaCapture.VideoPara();
+        para.setWidth(height);
+        para.setHeight(width);
+        para.setFps(fps);
+        para.setBitrate(bitrate);
+        try{
+            mLSMediaCapture.startVideoPreviewEx(mNeteaseView,frontCamera,useFilter,para);
+        }catch (Exception e){
+            mMessageHandle.Callback(500,"start camera fail");
+        }
+    }
+
+
     //关闭预览
     public void stopPreview(){
         mLSMediaCapture.stopVideoPreview();
@@ -394,6 +412,17 @@ public class FvvYXVideo {
     //切换分辨率
     public void changeCaptureFormat(){
         mLSMediaCapture.changeCaptureFormat(mPublishParam.videoQuality,mPublishParam.isScale_16x9);
+    }
+
+
+    //切换分辨率自定义
+    public void changeCaptureFormatEx(int width,int height ,int fps, int bitrate){
+        lsMediaCapture.VideoPara para = new lsMediaCapture.VideoPara();
+        para.setWidth(height);
+        para.setHeight(width);
+        para.setFps(fps);
+        para.setBitrate(bitrate);
+        mLSMediaCapture.changeCaptureFormatEx(para);
     }
 
     //预览镜像

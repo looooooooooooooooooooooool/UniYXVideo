@@ -8,6 +8,7 @@
 		<button @click="watermark">水印</button>    
 		<button @click="setFilter">滤镜</button>    
 		<button @click="switchCamera">切换摄像头</button>    
+		<button @click="custom">自定义分辨率</button>    
 		<textarea v-model="ret" class="test"></textarea>
 	</view>
 </template>
@@ -36,7 +37,7 @@
 			},
 			start(){
 				this.$refs.videoTest.startStream({
-					url:"your rtmp url",
+					url:"you rtmp url",
 					save:"/sdcard/2.mp4"
 				})
 			},
@@ -58,6 +59,13 @@
 			},
 			switchCamera(){
 				this.$refs.videoTest.switchCamera(); 
+			},
+			custom(){
+				this.$refs.videoTest.changeCaptureCustom({
+					width:500,
+					height:500,
+					fps:24 
+				})
 			}
 		},
 		mounted() {  

@@ -45,15 +45,16 @@ public class MainActivity  extends AppCompatActivity {
         Log.i("Permission",String.valueOf(test));
 
         fvvYXVideo.setPreview(findViewById(R.id.videoview));
-        fvvYXVideo.mPublishParam.pushUrl = "rtmp://your rtmp url";
+        fvvYXVideo.mPublishParam.pushUrl = "you rtmp url";
         fvvYXVideo.mPublishParam.recordPath = "/sdcard/1.mp4";
-        //fvvYXVideo.mPublishParam.setFormatType("mp4");
+        fvvYXVideo.mPublishParam.setFormatType("RTMP");
         //fvvYXVideo.mPublishParam.setVideoQuality("MEDIUM");
         fvvYXVideo.startPreview();
     }
 
     public void start(View view){
-        fvvYXVideo.mPublishParam.qosEnable = false;
+//        fvvYXVideo.switchCamera();
+//        fvvYXVideo.mPublishParam.qosEnable = false;
         fvvYXVideo.startStream();
 
     }

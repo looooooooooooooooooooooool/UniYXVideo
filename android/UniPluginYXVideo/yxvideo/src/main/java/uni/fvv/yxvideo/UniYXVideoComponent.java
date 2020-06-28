@@ -62,13 +62,45 @@ public class UniYXVideoComponent extends WXComponent<NeteaseView>  {
 
         fvvYXVideo.mPublishParam.uploadLog = SetValue(options,"uploadLog",false);
         fvvYXVideo.mPublishParam.frontCamera = SetValue(options,"frontCamera",false);
-        fvvYXVideo.mPublishParam.isScale_16x9 = SetValue(options,"isScale_16x9",false);
         fvvYXVideo.mPublishParam.useFilter = SetValue(options,"useFilter",true);
         fvvYXVideo.mPublishParam.zoom = SetValue(options,"zoom",true);
+
         fvvYXVideo.mPublishParam.setVideoQuality(SetValue(options,"videoQuality","HIGH"));
+        fvvYXVideo.mPublishParam.isScale_16x9 = SetValue(options,"isScale_16x9",false);
 
         fvvYXVideo.setPreview(getHostView());
         fvvYXVideo.startPreview();
+    }
+
+    @JSMethod    //初始化预览界面
+    public void initCustom(final JSONObject options, final JSCallback callback){
+        messageHandle = callback;
+        fvvYXVideo = new FvvYXVideo(getContext().getApplicationContext(),new MessageHandle() {
+            @Override
+            public void Callback(int i, Object o) {
+                Log.i("callback : ", String.valueOf(i) + " : " + (o==null?"":o.toString()));
+                if(i == 37){
+                    o = fvvYXVideo.saveBitmap((Bitmap) o);
+                }
+                JSONObject data = new JSONObject();
+                data.put("code",i);
+                data.put("data",o);
+                callback.invokeAndKeepAlive(data);
+            }
+        });
+
+        fvvYXVideo.mPublishParam.uploadLog = SetValue(options,"uploadLog",false);
+        fvvYXVideo.mPublishParam.frontCamera = SetValue(options,"frontCamera",false);
+        fvvYXVideo.mPublishParam.useFilter = SetValue(options,"useFilter",true);
+        fvvYXVideo.mPublishParam.zoom = SetValue(options,"zoom",true);
+
+        int width =  SetValue(options,"width",1024);
+        int height =  SetValue(options,"height",768);
+        int fps =  SetValue(options,"fps",24);
+        int bitrate =  SetValue(options,"bitrate",width*height*fps*9/100);
+
+        fvvYXVideo.setPreview(getHostView());
+        fvvYXVideo.startPreviewEx(width,height,fps,bitrate);
     }
 
     @JSMethod //关闭预览
@@ -153,6 +185,16 @@ public class UniYXVideoComponent extends WXComponent<NeteaseView>  {
         fvvYXVideo.mPublishParam.setVideoQuality(SetValue(jsonObject,"videoQuality","HIGH"));
         fvvYXVideo.changeCaptureFormat();
     }
+
+    @JSMethod   //切换分辨率自定义
+    public void changeCaptureCustom(JSONObject jsonObject) {
+        int width =  SetValue(jsonObject,"width",1024);
+        int height =  SetValue(jsonObject,"height",768);
+        int fps =  SetValue(jsonObject,"fps",24);
+        int bitrate =  SetValue(jsonObject,"bitrate",width*height*fps*9/100);
+        fvvYXVideo.changeCaptureFormatEx(width,height,fps,bitrate);
+    }
+
 
     @JSMethod   //本地预览镜像
     public void setPreviewMirror(Boolean b) {
